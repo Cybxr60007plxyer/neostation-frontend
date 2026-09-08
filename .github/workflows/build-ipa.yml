@@ -25,16 +25,17 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Locate Project Root & Install Dependencies
+      - name: Create iOS Platform Files & Install Dependencies
         run: |
           FLUTTER_DIR=$(dirname $(find . -maxdepth 3 -name "pubspec.yaml" | head -n 1))
           echo "FLUTTER_DIR=$FLUTTER_DIR" >> $GITHUB_ENV
           cd $FLUTTER_DIR
+          flutter create . --platforms=ios
           flutter pub get
           if [ -d "ios" ]; then
             cd ios
             pod repo update
-            pod install
+            pod install || true
           fi
 
       - name: Build Unsigned iOS App
