@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-13 # Uses Xcode 14 compatibility image to avoid Xcode 15 Swift parser breaking changes
     
     steps:
       - name: Checkout Repository
@@ -25,7 +25,7 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Create iOS Platform Files & Install Dependencies
+      - name: Create iOS Platform Files & Prepare Dependencies
         run: |
           FLUTTER_DIR=$(dirname $(find . -maxdepth 3 -name "pubspec.yaml" | head -n 1))
           echo "FLUTTER_DIR=$FLUTTER_DIR" >> $GITHUB_ENV
