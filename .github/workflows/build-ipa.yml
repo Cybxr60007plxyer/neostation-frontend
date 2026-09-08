@@ -1,7 +1,9 @@
 name: Build NeoStation iOS IPA
 
 on:
-  workflow_dispatch: # Allows you to manually trigger the build via the GitHub website
+   push:
+    branches: [ "main" ] # Triggers the build automatically when you save changes
+  workflow_dispatch:     # Keeps the manual button ready for later use
 
 jobs:
   build:
