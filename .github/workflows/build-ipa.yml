@@ -30,6 +30,7 @@ jobs:
           FLUTTER_DIR=$(dirname $(find . -maxdepth 3 -name "pubspec.yaml" | head -n 1))
           echo "FLUTTER_DIR=$FLUTTER_DIR" >> $GITHUB_ENV
           cd $FLUTTER_DIR
+          flutter config --no-enable-swift-package-manager
           flutter create . --platforms=ios
           flutter pub get
           if [ -d "ios" ]; then
@@ -41,7 +42,7 @@ jobs:
       - name: Build Unsigned iOS App
         run: |
           cd ${{ env.FLUTTER_DIR }}
-          flutter build ios --release --no-codesign
+          flutter build ios --release --no-codesign --suppress-analytics
 
       - name: Package Payload into IPA
         run: |
